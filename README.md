@@ -29,6 +29,8 @@ void main() {        //we have to declare function on starting of dart program
 }
 ```
 ## basic app
+```
 To create your first app , first runapp in main function 
 void main(){
-runapp(App
+runapp(App)
+```

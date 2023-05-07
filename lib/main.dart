@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+
 // //basic datatypes / variables
 // int days = 30;
 // String name = "aashir";
@@ -20,11 +21,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //build method is very imp because Ui code writeen under buils
+    //build method is very imp because Ui code written under build
     int days = 30;
     return MaterialApp(
-      //first we have to give materialapp/widgetsapp
-      home: Homepage()
-    );
+        //first we have to give materialapp/widgetsapp
+        home: Homepage());
   }
 }

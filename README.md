@@ -1,6 +1,7 @@
 - [creating variables in dart](#variables)
 - [ flutter stateless widget ](#stl)
 - [basic helloworld code](#hello)
+- [creating first app](#basic-app)
 ## variables
 ```
 // ways to declare variales in dart 
@@ -27,3 +28,7 @@ void main() {        //we have to declare function on starting of dart program
   print('Hello, World!');  //same as python just an addition of semicolon(;)
 }
 ```
+## basic app
+To create your first app , first runapp in main function 
+void main(){
+runapp(App

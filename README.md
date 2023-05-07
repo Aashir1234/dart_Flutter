@@ -3,14 +3,14 @@
 - [basic helloworld code](#hello)
 ## variables
 ```
-// ways to declare variales in darrt 
+// ways to declare variales in dart 
+
  int days = 30;
  String name = "aashir";
- double pi = 3.14;awan
+ double pi = 3.14;
  bool ismale = true;
  var day = "tuesday"; // dynamic data type (var) we can assign it string/num
- // we can declare constants whose values donot change
- const pi = 3.14;
+ const pi = 3.14;   // we can declare constants whose values donot change
  final int days = 30; // we can variable a final variable whose value doesn't change throughout program
 ```
 ## stl

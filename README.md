@@ -20,7 +20,7 @@ write stl and press enter then IDE will generate a stateless widget here replace
 widget build(BuildContext context){
 ....
 }
-This is very important because all ui is written under build 
+This is very important because all UI is written under build 
 ## hello
 ```
 void main() {        //we have to declare function on starting of dart program

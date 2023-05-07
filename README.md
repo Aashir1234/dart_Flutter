@@ -1,8 +1,9 @@
+- [connecting android emulator with vs code](#android-emulator-with-vs-code)
 - [creating variables in dart](#variables)
 - [ flutter stateless widget ](#stl)
 - [basic helloworld code](#hello)
 - [creating first app](#basic-app)
-- [connecting android emulator with vs code](#android-emulator-with-vs-code)
+
 ## android emulator with vs code
 1) To  connect android emulator with vscode first install Android ios emulator extension
 2) Go to android/sdk/emullator ,right click and then click open in terminal

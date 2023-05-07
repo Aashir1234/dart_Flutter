@@ -2,6 +2,13 @@
 - [ flutter stateless widget ](#stl)
 - [basic helloworld code](#hello)
 - [creating first app](#basic-app)
+- [connecting android emulator with vs code](#android-emulator-with-vs-code)
+## android emulator with vs code
+1) To  connect android emulator with vscode first install Android ios emulator extension
+2) Go to android/sdk/emullator ,right click and then click open in terminal
+3) copy path by command (pwd) 
+4) go to settings/Emulator configurations and paste emulator path in (Emulator: Emulator Path Linux) section
+5) press ctrl + alt + E then view android emulators then select device you want to boot
 ## variables
 ```
 // ways to declare variales in dart 

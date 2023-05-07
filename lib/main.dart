@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
+import 'package:flutter_application_1/pages/login_page.dart';
+import 'pages/home_page.dart';
 
 // //basic datatypes / variables
 // int days = 30;
@@ -24,7 +25,14 @@ class MyApp extends StatelessWidget {
     //build method is very imp because Ui code written under build
     int days = 30;
     return MaterialApp(
-        //first we have to give materialapp/widgetsapp
-        home: Homepage());
+      //first we have to give materialapp/widgetsapp
+      //home: Homepage(),
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      themeMode: ThemeMode.system,
+      routes: {
+        "/": (context) => LoginPage(),  //calling object of login page class
+        "/home": (context) => Homepage(),
+      },
+    );
   }
 }

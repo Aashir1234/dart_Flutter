@@ -3,7 +3,9 @@
 - [ flutter stateless widget ](#stl)
 - [basic helloworld code](#hello)
 - [creating first app](#basic-app)
-
+- [child/children](#child/children)
+- [routes](#routes)
+- [scaffold_property](#scaffold)
 ## android emulator with vs code
 1) To  connect android emulator with vscode first install Android ios emulator extension
 2) Go to android/sdk/emullator ,right click and then click open in terminal
@@ -42,3 +44,9 @@ To create your first app , first runapp in main function
 void main(){
 runapp(App)
 ```
+## routes
+routes are basically sequence of pages of your app it accepts key value pair same as dictonary in py. in key add path of page i.e "/" or "/home" and in value call object of main class of that page as { (context) => classname()
+## scaffold 
+scaffold is property/component of widget through which you can easily add header(appbar)/fotter/drawer etc (same like html)
+## child/children
+child children specifies number of items of section/body/container. for single item we use child and for multiple items we use children

@@ -45,7 +45,7 @@ void main(){
 runapp(App)
 ```
 ## routes
-routes are basically sequence of pages of your app it accepts key value pair same as dictonary in py. in key add path of page i.e "/" or "/home" and in value call object of main class of that page as { (context) => classname()
+routes are basically sequence of pages of your app it accepts key value pair same as dictonary in py. in key add path of page i.e "/" or "/home" and in value call object of main class of that page as { (context) => classname()}
 ## scaffold 
 scaffold is property/component of widget through which you can easily add header(appbar)/fotter/drawer etc (same like html)
 ## child/children

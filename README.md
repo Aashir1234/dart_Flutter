@@ -50,3 +50,4 @@ routes are basically sequence of pages of your app it accepts key value pair sam
 scaffold is property/component of widget through which you can easily add header(appbar)/fotter/drawer etc (same like html)
 ## child/children
 child children specifies number of items of section/body/container. for single item we use child and for multiple items we use children
+# difference between stateless and state full widget

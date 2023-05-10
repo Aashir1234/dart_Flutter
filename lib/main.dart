@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/login_page.dart';
 import 'pages/home_page.dart';
+import 'utils/routes.dart';
 
 // //basic datatypes / variables
 // int days = 30;
@@ -30,8 +31,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.deepPurple),
       themeMode: ThemeMode.system,
       routes: {
-        "/": (context) => LoginPage(),  //calling object of login page class
-        "/home": (context) => Homepage(),
+        MyRoutes.loginRoute: (context) => LoginPage(), //calling object of login page class
+        MyRoutes.homeRoute: (context) => Homepage(), //same like dictionary key/value pair
       },
     );
   }

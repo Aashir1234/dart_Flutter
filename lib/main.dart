@@ -30,10 +30,18 @@ class MyApp extends StatelessWidget {
       //home: Homepage(),
       theme: ThemeData(primarySwatch: Colors.deepPurple),
       themeMode: ThemeMode.system,
+      initialRoute: MyRoutes.loginRoute,
       routes: {
-        MyRoutes.loginRoute: (context) => LoginPage(), //calling object of login page class
-        MyRoutes.homeRoute: (context) => Homepage(), //same like dictionary key/value pair
+        "/login": (context) => LoginPage(),
+        "/home": (context) => Homepage()
+        // ".home"
       },
+      //routes: {
+      // MyRoutes.loginRoute: (context) =>
+      //     LoginPage(), //calling object of login page class
+      // MyRoutes.homeRoute: (context) =>
+      //     Homepage(), //same like dictionary key/value pair
+      // },
     );
   }
 }

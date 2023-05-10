@@ -10,19 +10,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool changeButton = false;
+  bool changeButton = false;  // boolean variable for animated button
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {   // build function
     return Material(
         color: Colors.white,
-        child: SingleChildScrollView(
-            child: Column(
+        child: SingleChildScrollView(   // using single child scrool view our psge container/elements doesnot crop on different screen sizes (remove error of botom overflow)
+            child: Column(  // column for all elements 
           children: [
             SizedBox(
               height: 60,
             ),
-            Image.asset(
-              "assets/images/loginimg.png",
+            Image.asset( // to add image in flutter first we have to add it in assets folder and uncomment dependencies in pubsec.yaml
+              "assets/images/loginimg.png",  //image_path
               fit: BoxFit.cover,
               height: 250,
             ),
@@ -36,8 +36,8 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 20,
             ),
-            Padding(
-                padding: const EdgeInsets.symmetric(
+            Padding(  //padding of username and password forms
+                padding: const EdgeInsets.symmetric(    
                     vertical: 16.0, horizontal: 32.0),
                 child: Column(
                   children: [
@@ -54,14 +54,14 @@ class _LoginPageState extends State<LoginPage> {
                       height: 20,
                     ),
                     //animated container
-                    InkWell(
+                    InkWell(  // type of container for button animation 
                         onTap: () async {
                           setState(
                             () {
-                              changeButton = true;
+                              changeButton = true;  // on tap above declared changebutton becomes true 
                             },
                           );
-                          await Future.delayed(Duration(seconds: 1));
+                          await Future.delayed(Duration(seconds: 1));  // after tap screen waits for 1 sec and then goes to next route
                           Navigator.push(
                               context,
                               MaterialPageRoute(

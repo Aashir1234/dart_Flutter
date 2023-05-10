@@ -2,10 +2,12 @@
 - [creating variables in dart](#variables)
 - [ flutter stateless widget ](#stl)
 - [basic helloworld code](#hello)
+- [stateless vs statefull widget](#difference-between-stateless-and-state-full-widget)
 - [creating first app](#basic-app)
 - [child/children](#child/children)
 - [routes](#routes)
 - [scaffold_property](#scaffold)
+- [conditional statements](#conditional-statements)
 ## android emulator with vs code
 1) To  connect android emulator with vscode first install Android ios emulator extension
 2) Go to android/sdk/emullator ,right click and then click open in terminal
@@ -50,4 +52,8 @@ routes are basically sequence of pages of your app it accepts key value pair sam
 scaffold is property/component of widget through which you can easily add header(appbar)/fotter/drawer etc (same like html)
 ## child/children
 child children specifies number of items of section/body/container. for single item we use child and for multiple items we use children
-# difference between stateless and state full widget
+## difference between stateless and state full widget
+Stateless widgets are the widgets that don’t change i.e. they are immutable. Its appearance and properties remain unchanged throughout the lifetime of the widget. Stateful Widgets are the ones that change its properties during run-time. They are dynamic i.e., they are mutable and can be drawn multiple times within its lifetime. for statefull widget we have to call "set state( () {} )
+## conditional-statements
+Condition ? True : False ; </br>
+it checks boolian if it is "true" then IDE executes statement after "?" and if boolian is false it executes statement which is after ":"

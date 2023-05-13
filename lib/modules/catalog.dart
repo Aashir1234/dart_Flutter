@@ -1,7 +1,7 @@
 class CatalogModel {
-  static final items = [
+  static List<Item> items = [
     Item(
-      id: "1233",
+      id: 1233,
       name: "product1",
       desc: "product1 desc",
       price: 1000,
@@ -13,7 +13,7 @@ class CatalogModel {
 }
 
 class Item {
-  final String id;
+  final int id;
   final String name;
   final String desc;
   final num price;
@@ -26,4 +26,23 @@ class Item {
       required this.price,
       required this.color,
       required this.image});
+  factory Item.fromJson(Map<String, dynamic> map) {
+    //decode and maping of json file
+    return Item(
+      id: map['id'],
+      name: map['name'],
+      desc: map['desc'],
+      price: map['price'] as int,
+      color: map['color'],
+      image: map['image'],
+    );
+  }
+  toMap() => {
+        "id": id,
+        "name": name,
+        "desc": desc,
+        "price": price,
+        "color": color,
+        "image": image,
+      };
 }

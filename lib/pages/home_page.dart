@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_application_1/widgets/drawer.dart';
 import 'dart:convert'; //json encoder decoder library
 import 'package:flutter/services.dart'; // jsan library used to load json file
+import 'package:flutter_application_1/pages/cart_page.dart';
 import '../modules/catalog.dart';
 // import '../widgets/item_widget.dart';
 import "package:velocity_x/velocity_x.dart";
@@ -9,6 +10,7 @@ import "package:velocity_x/velocity_x.dart";
 import '../widgets/themes.dart';
 import '../widgets/homewidgets/catalog_header.dart';
 import '../widgets/homewidgets/catalog_list.dart';
+import 'package:flutter/cupertino.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -44,6 +46,15 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
         //component of widget related to html {header/body/flutter}
         backgroundColor: MyTheme.creamColor,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CartPage(),
+              )),
+          backgroundColor: Color.fromARGB(255, 0, 50, 142),
+          child: Icon(CupertinoIcons.cart),
+        ),
         body: SafeArea(
             child: Container(
                 padding: Vx.m32,

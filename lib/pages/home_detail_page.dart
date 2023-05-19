@@ -21,7 +21,7 @@ class HomeDetailPage extends StatelessWidget {
           alignment: MainAxisAlignment.spaceBetween,
           buttonPadding: Vx.mH8,
           children: [
-            "\$${catalog.price}".text.bold.xl3.make(),
+            "\$${catalog.price}".text.bold.xl3.red800.make(),
             ElevatedButton(
               onPressed: () {},
               style: ButtonStyle(
@@ -35,35 +35,48 @@ class HomeDetailPage extends StatelessWidget {
           ],
         ),
       ),
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+      ),
       body: SafeArea(
-          child: Column(
-        children: [
-          Hero(
-            tag: Key(catalog.id.toString()),
-            child: Image.network(
-              catalog.image,
-            ),
-          ).p16(),
-          Expanded(
-            child: VxArc(
-              height: 30.0,
-              arcType: VxArcType.CONVEY,
-              edge: VxEdge.TOP,
-              child: Container(
-                color: Colors.white,
-                width: context.screenWidth,
-                child: Column(
-                  children: [
-                    catalog.name.text.xl4.bold.make(),
-                    catalog.desc.text.textStyle(context.captionStyle).xl.make(),
-                  ],
-                ).py64(),
+        child: Column(
+          children: [
+            Hero(
+              tag: Key(catalog.id.toString()),
+              child: Image.network(
+                catalog.image,
               ),
-            ),
-          )
-        ],
-      )),
+            ).h32(context),
+            Expanded(
+              child: VxArc(
+                height: 30.0,
+                arcType: VxArcType.CONVEY,
+                edge: VxEdge.TOP,
+                child: Container(
+                  color: Colors.white,
+                  width: context.screenWidth,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        catalog.name.text.xl4.bold.make(),
+                        catalog.desc.text
+                            .textStyle(context.captionStyle)
+                            .xl
+                            .make(),
+                        "Lorem ipsum, dolor sit shsd ss  ss  dshds gdsk jhd sggh gdsoih sdgg gds kjh gd skh aashir kih fsf f sfh fksh jskjsjj sjf fj ksru jdihg odot s quia vel atque conseq uuntur neque, corrupti itaque co ipsum eligendi suscipit, optio exercita tionem klhet flask  bashi"
+                            .text
+                            .textStyle(context.captionStyle)
+                            .make()
+                            .p16()
+                      ],
+                    ).py64(),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

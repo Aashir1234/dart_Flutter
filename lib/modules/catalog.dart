@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 class CatalogModel {
+  static final catModel = CatalogModel._internal();
+  CatalogModel._internal();
+  factory CatalogModel() => catModel;
   static List<Item> items = [
     Item(
       id: 1233,
@@ -10,6 +15,9 @@ class CatalogModel {
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkkVsRNVJ7O7xNGK7IXtRwchi4NsKzUUdPMMcmIdbDKH_x6DKXR2EQGWrBiM8KKga7Ey0&usqp=CAU",
     ),
   ];
+  Item getbyid(int id) =>
+      items.firstWhere((element) => element.id == id, orElse: null);
+  Item getByposition(int pos) => items[pos];
 }
 
 class Item {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 // import '/utils/routes.dart';
 
 class LoginPage extends StatefulWidget {
@@ -60,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
             Text(
               "Account Registration",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              
             ),
             SizedBox(
               height: 20,

@@ -3,6 +3,7 @@ import 'package:flutter_application_1/pages/login_page.dart';
 import 'package:flutter_application_1/widgets/themes.dart';
 import 'pages/home_page.dart';
 import 'utils/routes.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // //basic datatypes / variables
 // int days = 30;
@@ -30,8 +31,14 @@ class MyApp extends StatelessWidget {
       //first we have to give materialapp/widgetsapp
       //home: Homepage(),
       themeMode: ThemeMode.system,
-      theme: MyTheme.lightTheme(context),
-      darkTheme: MyTheme.darkTheme(context),
+      theme: ThemeData(
+          primarySwatch: Colors.deepPurple,
+          fontFamily: GoogleFonts.poppins().fontFamily,
+          primaryTextTheme: GoogleFonts.poppinsTextTheme()),
+      // MyTheme.lightTheme(context),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: MyRoutes.homeRoute,
       routes: {

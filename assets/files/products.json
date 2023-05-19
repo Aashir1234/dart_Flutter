@@ -25,14 +25,6 @@
             "image": "https://crdms.images.consumerreports.org/f_auto,w_600/prod/products/cr/models/402647-12-to-13-inch-laptops-apple-macbook-air-13-inch-2021-m1-10017732.png"
         },
         {
-            "id": 4,
-            "name": "Playstation 5",
-            "desc": "Sony Playstation 5th generation",
-            "price": 500,
-            "color": "#544ee4",
-            "image": "https://www.shophive.com/media/catalog/product/cache/3617b85921733ef3774cdbec091e1c0f/6/1/619bkvkw35l._sl1500_.jpg"
-        },
-        {
             "id": 5,
             "name": "Airpods Pro",
             "desc": "Apple Aipods Pro 1st generation",

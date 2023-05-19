@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/widgets/drawer.dart';
+// import 'package:flutter_application_1/widgets/drawer.dart';
 import 'dart:convert'; //json encoder decoder library
 import 'package:flutter/services.dart'; // jsan library used to load json file
 import '../modules/catalog.dart';
-import '../widgets/item_widget.dart';
+// import '../widgets/item_widget.dart';
 import "package:velocity_x/velocity_x.dart";
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import '../widgets/themes.dart';
-import 'homewidgets/catalog_header.dart';
-import 'homewidgets/catalog_list.dart';
+import '../widgets/homewidgets/catalog_header.dart';
+import '../widgets/homewidgets/catalog_list.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);

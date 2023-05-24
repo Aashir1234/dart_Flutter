@@ -1,7 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_application_1/pages/signup_page.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
+
+// import 'package:google_fonts/google_fonts.dart';
 // import '/utils/routes.dart';
+//////////////////////////////////////////////////////////
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+////////////////////////////////////////////////////////
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,7 +32,55 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool changeButton = false; // boolean variable for animated button
   final _formKey = GlobalKey<FormState>();
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
+  // void login(BuildContext context) async {
+  //   if (_formKey.currentState!.validate()) {
+  //     setState(() {
+  //       changeButton = true;
+  //     });
+
+  //     var data = {
+  //       'username': _usernameController.text,
+  //       'password': _passwordController.text,
+  //     };
+
+  //     var response = await http.post(
+  //       Uri.parse('http://localhost:5000/login'),
+  //       body: data,
+  //     );
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (context) => Homepage()));
+
+  //     if (response.statusCode == 200) {
+  //       // Login successful
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => Homepage()),
+  //       );
+  //     } else {
+  //       // Invalid credentials
+  //       showDialog(
+  //         context: context,
+  //         builder: (context) => AlertDialog(
+  //           title: Text('Error'),
+  //           content: Text('Invalid username or password.'),
+  //           actions: [
+  //             TextButton(
+  //               onPressed: () => Navigator.pop(context),
+  //               child: Text('OK'),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     }
+
+  //     setState(() {
+  //       changeButton = false;
+  //     });
+  //   }
+  // }
   moveToHome(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       setState(
@@ -53,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
               // to add image in flutter first we have to add it in assets folder and uncomment dependencies in pubsec.yaml
               "assets/images/loginimg.png", //image_path
               fit: BoxFit.cover,
-              height: 250,
+              height: 200,
             ),
             SizedBox(
               height: 20,
@@ -61,10 +128,6 @@ class _LoginPageState extends State<LoginPage> {
             Text(
               "Account Registration",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              
-            ),
-            SizedBox(
-              height: 20,
             ),
             Padding(
                 //padding of username and password forms
@@ -95,6 +158,8 @@ class _LoginPageState extends State<LoginPage> {
                                 return "Password  cannot b empty";
                               } else if (value!.length < 6) {
                                 return "Length of password should be greater then six";
+                              } else if (!value.contains(RegExp(r'[@#!%&]'))) {
+                                return "password should contain at least one special character '@', '#', '!', '%', or '&'";
                               }
                               return null;
                             }),
@@ -103,41 +168,59 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         //animated container
                         Material(
-                            child: InkWell(
-                                // type of container for button animation
-                                onTap: () => moveToHome(context),
-                                child: AnimatedContainer(
-                                  duration: Duration(seconds: 1),
-                                  height: 50,
-                                  width: changeButton
-                                      ? 50
-                                      : 150, //conditional statement
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      color: Colors.deepPurple,
-                                      borderRadius: BorderRadius.circular(
-                                          changeButton ? 50 : 8)),
-                                  child: changeButton
-                                      ? Icon(
-                                          Icons.done,
-                                          color: Colors.white,
-                                        )
-                                      : Text(
-                                          "log in",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                )))
-                        // ElevatedButton(
-                        //   child: Text("Login"),
-                        //   style: TextButton.styleFrom(minimumSize: Size(150, 40)),
-                        //   onPressed: () {
-                        //     print("hi aashir");
-                        //Navigator.pushNamed(context, MyRoutes.homeRoute);
-                        // },
-                        // )
+                            color: Colors.white,
+                            child: Column(
+                              children: [ 
+                                InkWell(
+                                  // type of container for button animation
+                                  onTap: () => moveToHome(context),
+                                  child: AnimatedContainer(
+                                    duration: Duration(seconds: 1),
+                                    height: 50,
+                                    width: changeButton
+                                        ? 50
+                                        : 150, //conditional statement
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: Colors.deepPurple,
+                                        borderRadius: BorderRadius.circular(
+                                            changeButton ? 50 : 8)),
+                                    child: changeButton
+                                        ? Icon(
+                                            Icons.done,
+                                            color: Colors.white,
+                                          )
+                                        : Text(
+                                            "log in",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18),
+                                          ),
+                                  ),
+                                ).p16(),
+                                ElevatedButton(
+                                  child: Text(
+                                    "Sign Up",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                  style: TextButton.styleFrom(
+                                    minimumSize: Size(150, 50),
+                                  ),
+                                  onPressed: () {
+                                    print("hi aashir");
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SignupPage()));
+                                  },
+                                ).p4(),
+                              ],
+                            ))
                       ],
                     )))
           ],

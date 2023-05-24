@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/cart_page.dart';
+import 'package:flutter_application_1/pages/confirmorder.dart';
 import 'package:flutter_application_1/pages/login_page.dart';
+import 'package:flutter_application_1/pages/signup_page.dart';
 import 'package:flutter_application_1/widgets/themes.dart';
 import 'pages/home_page.dart';
 import 'utils/routes.dart';
@@ -41,11 +43,13 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: MyRoutes.homeRoute,
+      initialRoute: MyRoutes.loginRoute,
       routes: {
         "/login": (context) => LoginPage(),
         "/home": (context) => Homepage(),
         "/cartRoute": (context) => CartPage(),
+        "/signup": (context) => SignupPage(),
+        '/confirmorder': (context) => Confirmorder(),
 
         // ".home"
       },

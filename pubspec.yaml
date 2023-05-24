@@ -36,7 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   velocity_x: ^3.3.0
   google_fonts: ^4.0.4
-
+  intl: ^0.17.0
+  counter_button: ^1.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

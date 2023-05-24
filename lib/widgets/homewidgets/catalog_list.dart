@@ -1,37 +1,67 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/modules/cart.dart';
+import 'package:counter_button/counter_button.dart';
+import 'package:flutter_application_1/modules/catalog.dart';
+import 'package:flutter_application_1/pages/home_detail_page.dart';
 import 'package:flutter_application_1/widgets/homewidgets/ad_tocart.dart';
 import 'package:velocity_x/velocity_x.dart';
-// import 'package:velocity_x/velocity_x.dart';
 
-import '../../modules/catalog.dart';
-import '../../pages/home_detail_page.dart';
-import '../themes.dart';
-// import '../../pages/home_page.dart';
 import 'catalog_image.dart';
 
-// import '../home_page.dart';
-class CatalogList extends StatelessWidget {
+class CatalogList extends StatefulWidget {
+  @override
+  _CatalogListState createState() => _CatalogListState();
+}
+
+class _CatalogListState extends State<CatalogList> {
+  List<Item> filteredCatalog = CatalogModel.items;
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: CatalogModel.items.length,
-      itemBuilder: (context, index) {
-        final catalog = CatalogModel.items[index];
-        return InkWell(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomeDetailPage(
-                catalog: catalog,
-              ),
+    return Column(
+      children: [
+        TextField(
+          onChanged: (value) {
+            setState(() {
+              filteredCatalog = CatalogModel.items
+                  .where((item) =>
+                      item.name.toLowerCase().contains(value.toLowerCase()))
+                  .toList();
+            });
+          },
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+              borderSide: const BorderSide(),
             ),
+            labelText: 'Search',
+            suffixIcon: Icon(Icons.search),
           ),
-          child: CatalogItem(catalog: catalog),
-        );
-      },
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: filteredCatalog.length,
+            itemBuilder: (context, index) {
+              final catalog = filteredCatalog[index];
+              return InkWell(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeDetailPage(
+                      catalog: catalog,
+                    ),
+                  ),
+                ),
+                child: CatalogItem(catalog: catalog),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
@@ -46,34 +76,34 @@ class CatalogItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return VxBox(
-        child: Row(
-      children: [
-        Hero(
-          tag: Key(catalog.id.toString()),
-          child: CatalogImage(
-            image: catalog.image,
+      child: Row(
+        children: [
+          Hero(
+            tag: Key(catalog.id.toString()),
+            child: CatalogImage(
+              image: catalog.image,
+            ),
           ),
-        ),
-        Expanded(
+          Expanded(
             child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            catalog.name.text.lg.bold.make(),
-            catalog.desc.text.textStyle(context.captionStyle).make(),
-            ButtonBar(
-              alignment: MainAxisAlignment.spaceBetween,
-              buttonPadding: Vx.mH8,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                "\$${catalog.price}".text.bold.xl.make(),
-                AddToCart(catalog: catalog)
+                catalog.name.text.lg.bold.make(),
+                catalog.desc.text.textStyle(context.captionStyle).make(),
+                ButtonBar(
+                  alignment: MainAxisAlignment.spaceBetween,
+                  buttonPadding: Vx.mH8,
+                  children: [
+                    "\$${catalog.price}".text.bold.xl.make(),
+                    AddToCart(catalog: catalog),
+                  ],
+                )
               ],
-            )
-          ],
-        ))
-      ],
-    )).white.roundedLg.square(150).make().py(16);
+            ),
+          ),
+        ],
+      ),
+    ).white.roundedLg.square(150).make().py(16);
   }
 }
-
-

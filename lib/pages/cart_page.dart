@@ -3,6 +3,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../modules/cart.dart';
 import '../widgets/themes.dart';
+import 'confirmorder.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -24,27 +25,46 @@ class CartPage extends StatelessWidget {
   }
 }
 
-class _CartTotal extends StatelessWidget {
+class _CartTotal extends StatefulWidget {
+  @override
+  State<_CartTotal> createState() => _CartTotalState();
+}
+
+class _CartTotalState extends State<_CartTotal> {
   final _cart = CartModel();
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 100,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        "\$${_cart.totalPrice}"
-            .text
-            .xl5
-            .color(context.theme.accentColor)
-            .make(),
-        70.widthBox,
-        ElevatedButton(
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: "Buying not supprted yet :( ".text.make()));
-          },
-          child: "Buy".text.make(),
-        ).w32(context)
-      ]),
+      
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        
+        children: [
+          
+          "\$${_cart.totalPrice}"
+              .text
+              .xl5
+              .color(Colors.black)
+              .make(),
+          70.widthBox,
+          
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Confirmorder(),
+                ),
+              );
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //     SnackBar(content: "Buying not supprted yet :( ".text.make()));
+            },
+            child: "Buy".text.make(),
+          ).w32(context)
+        ],
+      ),
     );
   }
 }

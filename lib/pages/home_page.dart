@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert'; //json encoder decoder library
 import 'package:flutter/services.dart'; // jsan library used to load json file
 import 'package:flutter_application_1/pages/cart_page.dart';
+import '../modules/cart.dart';
 import '../modules/catalog.dart';
 // import '../widgets/item_widget.dart';
 import "package:velocity_x/velocity_x.dart";
@@ -21,13 +22,6 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   final int days = 30;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    loaddata(); //function decleration
-  }
-
   loaddata() async {
     final productsjson =
         await rootBundle.loadString("assets/files/products.json");
@@ -39,9 +33,18 @@ class _HomepageState extends State<Homepage> {
     setState(() {});
   }
 
+  // List<Map<String, dynamic>> _foundUsers = [];
+  // @override
+  // initState() async {
+  //   _foundUsers = CatalogModel.items.cast<Map<String, dynamic>>();
+  //   super.initState();
+  //   //   super.initState();
+  // }
+
   // const Homepage({super.key});
   @override
   Widget build(BuildContext context) {
+    final _cart = CartModel();
     // final dummyList = List.generate(10, (index) => CatalogModel.items[0]);
     return Scaffold(
         //component of widget related to html {header/body/flutter}
@@ -54,13 +57,24 @@ class _HomepageState extends State<Homepage> {
               )),
           backgroundColor: Color.fromARGB(255, 0, 50, 142),
           child: Icon(CupertinoIcons.cart),
-        ),
+        ).badge(color: Colors.red, size: 20),
         body: SafeArea(
             child: Container(
                 padding: Vx.m32,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // TextField(
+                    //   // onChanged: ((value) => ),
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.circular(20.0),
+                    //       borderSide: const BorderSide(),
+                    //     ),
+                    //     labelText: 'Search',
+                    //     suffixIcon: Icon(Icons.search),
+                    //   ),
+                    // ),
                     CatalogeHeader(),
                     if (CatalogModel.items != null &&
                         CatalogModel.items.isNotEmpty)

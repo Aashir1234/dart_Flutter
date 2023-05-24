@@ -4,7 +4,7 @@ import 'package:velocity_x/velocity_x.dart';
 // import 'package:goole_fonts/google_fonts.dart';
 class MyTheme {
   static ThemeData lightTheme(BuildContext context) => ThemeData(
-      primarySwatch: Colors.deepPurple,
+      primarySwatch: Colors.lightGreen,
       // fontFamily:
       appBarTheme: AppBarTheme(
         color: Colors.white,

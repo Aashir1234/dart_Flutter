@@ -21,26 +21,29 @@ class _AddToCartState extends State<AddToCart> {
   final _cart = CartModel();
   @override
   Widget build(BuildContext context) {
-    bool isInCart = _cart.items.contains(widget.catalog) ?? false;
+    bool isInCart = false;
     var cupertinoIcons;
     return ElevatedButton(
       onPressed: () {
-        if (!isInCart) {
-          isInCart = isInCart.toggle();
-          final _catalog = CatalogModel();
-
-          _cart.catalog = _catalog;
-          _cart.add(widget.catalog);
-          setState(() {});
-        }
+        // if (!isInCart) {
+        isInCart = isInCart.toggle();
+        final _catalog = CatalogModel();
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: "Product Added To Cart ".text.make()));
+        _cart.catalog = _catalog;
+        _cart.add(widget.catalog);
+        setState(() {});
       },
+      // },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(MyTheme.darkColor),
         shape: MaterialStateProperty.all(
           StadiumBorder(),
         ),
       ),
-      child: isInCart ? Icon(Icons.done) : Icon(CupertinoIcons.cart_badge_plus),
+      child: isInCart == true
+          ? Icon(Icons.done)
+          : Icon(CupertinoIcons.cart_badge_plus),
     );
   }
 }

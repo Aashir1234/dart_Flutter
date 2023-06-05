@@ -1,13 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_application_1/widgets/drawer.dart';
 import 'dart:convert'; //json encoder decoder library
 import 'package:flutter/services.dart'; // jsan library used to load json file
 import 'package:flutter_application_1/pages/cart_page.dart';
+import 'package:flutter_application_1/pages/login_page.dart';
 import '../modules/cart.dart';
 import '../modules/catalog.dart';
 // import '../widgets/item_widget.dart';
 import "package:velocity_x/velocity_x.dart";
 // import 'package:google_fonts/google_fonts.dart';
+import '../widgets/drawer.dart';
 import '../widgets/themes.dart';
 import '../widgets/homewidgets/catalog_header.dart';
 import '../widgets/homewidgets/catalog_list.dart';
@@ -22,6 +25,7 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   final int days = 30;
+  final auth = FirebaseAuth.instance;
   loaddata() async {
     final productsjson =
         await rootBundle.loadString("assets/files/products.json");
@@ -44,10 +48,35 @@ class _HomepageState extends State<Homepage> {
   // const Homepage({super.key});
   @override
   Widget build(BuildContext context) {
+    List<Item> filteredCatalog = CatalogModel.items;
     final _cart = CartModel();
     // final dummyList = List.generate(10, (index) => CatalogModel.items[0]);
     return Scaffold(
         //component of widget related to html {header/body/flutter}
+        drawer: MyDrawer(),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.1,
+          iconTheme: IconThemeData(color: Colors.black),
+          title: Text(
+            ' Ecommerece app',
+            style: TextStyle(color: Colors.black),
+          ),
+          // actions: [
+          //   IconButton(
+          //       onPressed: () {
+          //         auth.signOut().then((value) => {
+          //               Navigator.push(
+          //                   context,
+          //                   MaterialPageRoute(
+          //                       builder: (context) => LoginPage())),
+          //               ScaffoldMessenger.of(context).showSnackBar(
+          //                   SnackBar(content: "Logout SuccessFull".text.make()))
+          //             });
+          //       },
+          //       icon: Icon(Icons.logout))
+          // ],
+        ),
         backgroundColor: MyTheme.creamColor,
         floatingActionButton: FloatingActionButton(
           onPressed: () => Navigator.push(

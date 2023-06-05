@@ -37,7 +37,17 @@ dependencies:
   velocity_x: ^3.3.0
   google_fonts: ^4.0.4
   intl: ^0.17.0
+  firebase_auth: ^4.6.1
+  firebase_core: ^2.13.0
+  flutter_launcher_icons: ^0.13.1
+  firebase_database: ^10.2.1
+  cloud_firestore: ^4.7.1
+  dialogflow_flutter: ^1.0.0
+  chat_gpt_sdk: ^2.1.2 # Use a version compatible with Dart SDK 2.x
+
+
   counter_button: ^1.0.1
+  google_maps_flutter: ^2.2.8
 dev_dependencies:
   flutter_test:
     sdk: flutter

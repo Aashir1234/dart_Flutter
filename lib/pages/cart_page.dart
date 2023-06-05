@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -32,32 +33,50 @@ class _CartTotal extends StatefulWidget {
 
 class _CartTotalState extends State<_CartTotal> {
   final _cart = CartModel();
+  final postcontroller = TextEditingController();
+  final databaseRef = FirebaseDatabase.instance.ref('Orders');
+  void placeOrder() {
+    // Get the order name and price from the cart
+    String orderName = _cart.items.map((item) => item.name).join(', ');
+    num orderPrice = _cart.totalPrice;
+
+    // Store the order in the database
+    databaseRef.push().set({
+      'name': orderName,
+      'price': orderPrice,
+    }).then((_) {
+      // Clear the cart
+      setState(() {});
+
+      // Navigate to the confirmation page
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Confirmorder(),
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 100,
-      
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        
         children: [
-          
-          "\$${_cart.totalPrice}"
-              .text
-              .xl5
-              .color(Colors.black)
-              .make(),
+          "\$${_cart.totalPrice}".text.xl5.color(Colors.black).make(),
           70.widthBox,
-          
           ElevatedButton(
             onPressed: () {
+              // placeOrder();
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => Confirmorder(),
                 ),
               );
+
               // ScaffoldMessenger.of(context).showSnackBar(
               //     SnackBar(content: "Buying not supprted yet :( ".text.make()));
             },

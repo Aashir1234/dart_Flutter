@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "648687864152",
+    "project_id": "placeit-72a1d",
+    "storage_bucket": "placeit-72a1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648687864152:android:161448ead06ed6c5787d2d",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648687864152-h0tt95tu9bmj8u9qj6k8o5r84uh1sj42.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlBMpuvtvDFVBBCK1x50PPSx5zxF2fDi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648687864152-h0tt95tu9bmj8u9qj6k8o5r84uh1sj42.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

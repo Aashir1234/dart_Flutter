@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;
 import 'home_page.dart';
@@ -12,40 +13,37 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  @override
+  void dispose() {
+    emailcontroller.dispose();
+    passwordcontroller.dispose();
+    super.dispose();
+  }
+
+  final emailcontroller = TextEditingController();
+  final passwordcontroller = TextEditingController();
+
   bool changeButton = false;
   final _formKey = GlobalKey<FormState>();
   String? _password;
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _contactController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   void moveToHome(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         changeButton = true;
+        print(emailcontroller.text.toString());
+        _auth.createUserWithEmailAndPassword(
+            email: emailcontroller.text.toString(),
+            password: passwordcontroller.text.toString());
       });
-
-      var data = {
-        'username': _usernameController.text,
-        'contact': _contactController.text,
-        'password': _passwordController.text,
-      };
-
-      var response = await http.post(
-        Uri.parse('http://localhost:5000/signup'),
-        body: data,
-      );
-
-      if (response.statusCode == 200) {
-        Navigator.push(
+      Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => LoginPage()),
-        );
-      }
+          MaterialPageRoute(
+            builder: (context) => Homepage(),
+          ));
 
-      setState(() {
-        changeButton = false;
-      });
+      // Perform sign up and Firebase Authentication
     }
   }
 
@@ -86,13 +84,14 @@ class _SignupPageState extends State<SignupPage> {
                 child: Column(
                   children: [
                     TextFormField(
+                        controller: emailcontroller,
                         decoration: InputDecoration(
-                            hintText: "Username",
-                            labelText: "Enter Your  Name"),
+                            hintText: "Email", labelText: "Enter Your  Email"),
                         validator: (String? value) {
                           if (value != null && value.isEmpty) {
-                            return "Username  cannot b empty";
+                            return "Email  cannot b empty";
                           }
+
                           return null;
                         }),
                     SizedBox(
@@ -116,6 +115,7 @@ class _SignupPageState extends State<SignupPage> {
                       height: 20,
                     ),
                     TextFormField(
+                        controller: passwordcontroller,
                         obscureText: true, //to hide text of password
                         decoration: InputDecoration(
                             hintText: "Enter Password",
@@ -151,32 +151,67 @@ class _SignupPageState extends State<SignupPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    InkWell(
-                      // type of container for button animation
-                      onTap: () => moveToHome(context),
-                      child: AnimatedContainer(
-                        duration: Duration(seconds: 1),
-                        height: 50,
-                        width: changeButton ? 50 : 150, //conditional statement
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.deepPurple,
-                            borderRadius:
-                                BorderRadius.circular(changeButton ? 50 : 8)),
-                        child: changeButton
-                            ? Icon(
-                                Icons.done,
-                                color: Colors.white,
-                              )
-                            : Text(
-                                "OK",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18),
-                              ),
+                    ElevatedButton(
+                      child: Text(
+                        "OK",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
                       ),
+                      style: TextButton.styleFrom(
+                        minimumSize: Size(150, 50),
+                      ),
+                      onPressed: () {
+                        // print("hi aashir");
+                        // () => signUpUser();
+                        moveToHome(context);
+                      },
                     ).p4(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Already have an account ?"),
+                        TextButton(
+                          child: Text("Login"),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()));
+                          },
+                        ),
+                      ],
+                    )
+                    // InkWell(
+                    //   // type of container for button animation
+                    //   onTap: () => moveToHome(context),
+                    //   child: AnimatedContainer(
+                    //     duration: Duration(seconds: 1),
+                    //     height: 50,
+                    //     width: changeButton ? 50 : 150, //conditional statement
+                    //     alignment: Alignment.center,
+                    //     decoration: BoxDecoration(
+                    //         color: Colors.deepPurple,
+                    //         borderRadius:
+                    //             BorderRadius.circular(changeButton ? 50 : 8)),
+                    //     child: changeButton
+                    //         ? Icon(
+                    //             Icons.done,
+                    //             color: Colors.white,
+                    //           )
+                    //         : Text(
+                    //             "OK",
+                    //             style: TextStyle(
+                    //                 color: Colors.white,
+                    //                 fontWeight: FontWeight.bold,
+                    //                 fontSize: 18),
+                    //           ),
+                    // ),
+                    // ).p4(),
                   ],
                 ),
               ),

@@ -1,26 +1,29 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/pages/signup_page.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:http/http.dart' as http;
+
+import 'new_signuppage.dart';
 
 // import 'package:google_fonts/google_fonts.dart';
 // import '/utils/routes.dart';
-//////////////////////////////////////////////////////////
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+////////////////////////////////////////////////////////////////
+// class SignUpPage extends StatefulWidget {
+//   const SignUpPage({super.key});
 
-  @override
-  State<SignUpPage> createState() => _SignUpPageState();
-}
+//   @override
+//   State<SignUpPage> createState() => _SignUpPageState();
+// }
 
-class _SignUpPageState extends State<SignUpPage> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-////////////////////////////////////////////////////////
+// class _SignUpPageState extends State<SignUpPage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Placeholder();
+//   }
+// }
+// ///////////////////////////////////////////////////////////
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -30,57 +33,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  void dispose() {
+    emailcontroller.dispose();
+    passwordcontroller.dispose();
+    super.dispose();
+  }
+
+  final emailcontroller = TextEditingController();
+  final passwordcontroller = TextEditingController();
+
   bool changeButton = false; // boolean variable for animated button
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
 
-  // void login(BuildContext context) async {
-  //   if (_formKey.currentState!.validate()) {
-  //     setState(() {
-  //       changeButton = true;
-  //     });
-
-  //     var data = {
-  //       'username': _usernameController.text,
-  //       'password': _passwordController.text,
-  //     };
-
-  //     var response = await http.post(
-  //       Uri.parse('http://localhost:5000/login'),
-  //       body: data,
-  //     );
-  //     Navigator.push(
-  //         context, MaterialPageRoute(builder: (context) => Homepage()));
-
-  //     if (response.statusCode == 200) {
-  //       // Login successful
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => Homepage()),
-  //       );
-  //     } else {
-  //       // Invalid credentials
-  //       showDialog(
-  //         context: context,
-  //         builder: (context) => AlertDialog(
-  //           title: Text('Error'),
-  //           content: Text('Invalid username or password.'),
-  //           actions: [
-  //             TextButton(
-  //               onPressed: () => Navigator.pop(context),
-  //               child: Text('OK'),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     }
-
-  //     setState(() {
-  //       changeButton = false;
-  //     });
-  //   }
-  // }
   moveToHome(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       setState(
@@ -107,14 +72,14 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     // build function
     return Material(
-        color: Colors.white,
-        child: SingleChildScrollView(
-            // using single child scrool view our psge container/elements doesnot crop on different screen sizes (remove error of botom overflow)
-            child: Column(
+      color: Colors.white,
+      child: SingleChildScrollView(
+        // using single child scrool view our psge container/elements doesnot crop on different screen sizes (remove error of botom overflow)
+        child: Column(
           // column for all elements
           children: [
             SizedBox(
-              height: 60,
+              height: 100,
             ),
             Image.asset(
               // to add image in flutter first we have to add it in assets folder and uncomment dependencies in pubsec.yaml
@@ -130,100 +95,145 @@ class _LoginPageState extends State<LoginPage> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Padding(
-                //padding of username and password forms
-                padding: const EdgeInsets.symmetric(
-                    vertical: 16.0, horizontal: 32.0),
-                child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                            decoration: InputDecoration(
-                                hintText: "Enter Username",
-                                labelText: "Username"),
-                            validator: (String? value) {
-                              if (value != null && value.isEmpty) {
-                                return "Username  cannot b empty";
-                              }
-                              return null;
-                            }),
+              //padding of username and password forms
+              padding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                        controller: emailcontroller,
+                        decoration: InputDecoration(
+                            hintText: "Enter Email Address",
+                            labelText: "Email",
+                            prefixIcon: Icon(Icons.alternate_email)),
+                        validator: (String? value) {
+                          if (value != null && value.isEmpty) {
+                            return "Email  cannot b empty";
+                          } else if (value!.contains(RegExp(r'[@]'))) {
+                            return "Email should contain  '@'";
+                          }
+                          return null;
+                        }),
 
-                        TextFormField(
-                            obscureText: true, //to hide text of password
-                            decoration: InputDecoration(
-                                hintText: "Enter Password",
-                                labelText: "Password"),
-                            validator: (String? value) {
-                              if (value != null && value.isEmpty) {
-                                return "Password  cannot b empty";
-                              } else if (value!.length < 6) {
-                                return "Length of password should be greater then six";
-                              } else if (!value.contains(RegExp(r'[@#!%&]'))) {
-                                return "password should contain at least one special character '@', '#', '!', '%', or '&'";
-                              }
-                              return null;
-                            }),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        //animated container
-                        Material(
-                            color: Colors.white,
-                            child: Column(
-                              children: [ 
-                                InkWell(
-                                  // type of container for button animation
-                                  onTap: () => moveToHome(context),
-                                  child: AnimatedContainer(
-                                    duration: Duration(seconds: 1),
-                                    height: 50,
-                                    width: changeButton
-                                        ? 50
-                                        : 150, //conditional statement
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: Colors.deepPurple,
-                                        borderRadius: BorderRadius.circular(
-                                            changeButton ? 50 : 8)),
-                                    child: changeButton
-                                        ? Icon(
-                                            Icons.done,
-                                            color: Colors.white,
-                                          )
-                                        : Text(
-                                            "log in",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
-                                          ),
-                                  ),
-                                ).p16(),
-                                ElevatedButton(
-                                  child: Text(
-                                    "Sign Up",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                  style: TextButton.styleFrom(
-                                    minimumSize: Size(150, 50),
-                                  ),
-                                  onPressed: () {
-                                    print("hi aashir");
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                SignupPage()));
+                    TextFormField(
+                        controller: passwordcontroller,
+                        obscureText: true, //to hide text of password
+                        decoration: InputDecoration(
+                            hintText: "Enter Password",
+                            labelText: "Password",
+                            prefixIcon: Icon(Icons.lock_open)),
+                        validator: (String? value) {
+                          if (value != null && value.isEmpty) {
+                            return "Password  cannot b empty";
+                          } else if (value!.length < 6) {
+                            return "Length of password should be greater then six";
+                          } else if (!value.contains(RegExp(r'[@#!%&]'))) {
+                            return "password should contain at least one special character '@', '#', '!', '%', or '&'";
+                          }
+                          return null;
+                        }),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    //animated container
+                    Material(
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          ElevatedButton(
+                            child: Text(
+                              "Login",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
+                            style: TextButton.styleFrom(
+                              minimumSize: Size(150, 50),
+                            ),
+                            onPressed: () async {
+                              try {
+                                await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                  email: emailcontroller.text.trim(),
+                                  password: passwordcontroller.text.trim(),
+                                );
+
+                                // Authentication successful
+                                // Navigate to the desired page
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content:
+                                            "Login Sucessfull ".text.make()));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Homepage()),
+                                );
+                              } catch (error) {
+                                // Handle authentication error
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text("Invalid Entry"),
+                                      content: Text(
+                                          "The entered email or password is invalid."),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: Text("OK"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
                                   },
-                                ).p4(),
-                              ],
-                            ))
-                      ],
-                    )))
+                                );
+                              }
+                            },
+                          ).p4(),
+                          // Other login UI elements...
+                          SizedBox(
+                            height: 20,
+                          ),
+                          // Column(
+                          //   children: [
+                          //     SizedBox(
+                          //       height: 20,
+                          //     ),
+                          //     "---Or Continue With--- ".text.make(),
+
+                          //   ],
+                          // ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Don't have account ?"),
+                              TextButton(
+                                child: Text("Sign Up"),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => CreateAcc()));
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
           ],
-        )));
+        ),
+      ),
+    );
   }
 }

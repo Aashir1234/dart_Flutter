@@ -5,4 +5,5 @@ class MyRoutes {
   static String homeDetailPage = '/detail';
   static String confirmRoute = '/confirmorder';
   static String CartPage = '/cart';
+  static String myAI = '/myai';
 }
